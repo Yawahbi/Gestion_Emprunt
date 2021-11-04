@@ -14,7 +14,7 @@
 		Emprunt emprunt=(Emprunt)request.getAttribute("emprunt");
 	%>
 
-	<font color="yellow">Emprunt cree avec succes !</font></br></br>
+	<font color="green">${formEmprunt.resultat}</font></br></br>
 	Etudiant</br></br>
 	Num Apogee : ${etudiant.getNumApogee()}</br></br>
 	Nom : ${etudiant.getNom()}</br></br>

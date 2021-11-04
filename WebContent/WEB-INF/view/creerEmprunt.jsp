@@ -76,7 +76,7 @@
 			</table>
 		</fieldset>
 		</br>
-		<font color="red">${form.resultat}</font></br></br>
+		<font color="red">${formEmprunt.resultat}</font></br></br>
 		<input type="submit" name="submit" value="Valider">
 		<input type="reset" name="reset" value="Remettre à zéro">
 	</form>
