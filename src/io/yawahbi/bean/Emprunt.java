@@ -5,14 +5,14 @@ public class Emprunt {
 //	Attributes
 	String reference;
 	String date;
-	int periode;
+	String periode;
 	
 //	Constructors
 	public Emprunt() {
 		super();
 	}
 	
-	public Emprunt(String reference, String date, int periode) {
+	public Emprunt(String reference, String date, String periode) {
 		super();
 		this.reference = reference;
 		this.date = date;
@@ -38,11 +38,11 @@ public class Emprunt {
 		this.date = date;
 	}
 
-	public int getPeriode() {
+	public String getPeriode() {
 		return periode;
 	}
 
-	public void setPeriode(int periode) {
+	public void setPeriode(String periode) {
 		this.periode = periode;
 	}
 

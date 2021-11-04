@@ -11,57 +11,45 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.yawahbi.bean.Emprunt;
 import io.yawahbi.bean.Etudiant;
+import io.yawahbi.model.CreerEmprunt;
+import io.yawahbi.model.CreerEtudiant;
 
 @WebServlet("/creerEmprunt")
 public class EmpruntServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+    public static final String ATT_ETUDIANT = "etudiant";
+    public static final String ATT_EMPRUNT = "emprunt";
+    public static final String ATT_FORM = "form";
+    public static final String ATT_FORM_ETUDIANT = "formEtudiant";
+    public static final String ATT_FORM_EMPRUNT = "formEmprunt";
 
     public EmpruntServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		String submit=request.getParameter("submit");
-		if(submit!=null) {
-			String numApogee=request.getParameter("numApogee");
-			String nom=request.getParameter("nom");
-			String prenom=request.getParameter("prenom");
-			String numTel=request.getParameter("numTel");
-			String adresseMail=request.getParameter("adresseMail");
-			String filiere=request.getParameter("filiere");
-			
-			String reference=request.getParameter("reference");
-			String date=request.getParameter("date");
-			String periode=request.getParameter("periode");
-			
-			if(numApogee.isEmpty() || nom.isEmpty() || numTel.isEmpty() || reference.isEmpty() || date.isEmpty() || periode.isEmpty()) {
-				request.setAttribute("erreur", "Il faut remplir les champs oblegatoire !!");
-				this.getServletContext().getRequestDispatcher("/WEB-INF/view/creerEmprunt.jsp").forward(request, response);
-			}else {
-				if(Long.parseLong(numApogee)<0) {
-					request.setAttribute("erreur", "Le contenu de <b>Numero appogee</b> est non approprié!!");
-					this.getServletContext().getRequestDispatcher("/WEB-INF/view/creerEmprunt.jsp").forward(request, response);
-				}else if(Integer.parseInt(periode)!=7 && Integer.parseInt(periode)!=15) {
-					request.setAttribute("erreur", "La <b>Periode</b>  doit etre 7 jours ou 15 jours!!");
-					this.getServletContext().getRequestDispatcher("/WEB-INF/view/creerEmprunt.jsp").forward(request, response);
-				}else {
-					Etudiant etudiant=new Etudiant(numApogee,nom,prenom,numTel,adresseMail,filiere);
-					request.setAttribute("etudiant", etudiant);
-					
-					Emprunt emprunt=new Emprunt(reference,date,Integer.parseInt(periode));
-					request.setAttribute("emprunt", emprunt);
-					
-					this.getServletContext().getRequestDispatcher("/WEB-INF/view/afficherEmprunt.jsp").forward(request, response);
-				}
-			}
-		}else {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/view/creerEmprunt.jsp").forward(request, response);
-		}
+		this.getServletContext().getRequestDispatcher("/WEB-INF/view/creerEmprunt.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		CreerEtudiant formEtudiant= new CreerEtudiant();
+		CreerEmprunt formEmprunt= new CreerEmprunt();
+		
+		Etudiant etudiant= formEtudiant.creer(request);
+		Emprunt emprunt= formEmprunt.creer(request);
+		
+		request.setAttribute( ATT_FORM_ETUDIANT, formEtudiant );
+		request.setAttribute( ATT_FORM_EMPRUNT, formEmprunt );
+        request.setAttribute( ATT_ETUDIANT, etudiant );
+        request.setAttribute( ATT_EMPRUNT, emprunt );
+		if(!(formEtudiant.getErreurs().isEmpty() && formEmprunt.getErreurs().isEmpty())) {
+//			en cas d'erreurs de la creation
+			this.getServletContext().getRequestDispatcher("/WEB-INF/view/creerEmprunt.jsp").forward(request, response);
+		}else {
+//			en cas succes de la creation
+			this.getServletContext().getRequestDispatcher("/WEB-INF/view/afficherEmprunt.jsp").forward(request, response);
+		}
 		doGet(request, response);
 	}
 

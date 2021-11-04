@@ -16,36 +16,39 @@
 </head>
 <body>
 
- 	<c:if test="${not empty erreur}">
- 		<font color=red>${erreur}</font>
- 	</c:if>
-	<form action="creerEmprunt" method="GET">
+	<form action="creerEmprunt" method="POST">
 		<fieldset style="border-color:blue">
-			<legend style="color:blue">Informations Etudiant</legend>
+			<legend style="color:blue">InformEtudiantations Etudiant</legend>
 			<table>
 				<tr>
 					<td>Num Apogee<span style="color:red" >*</span></td>
-					<td><input type="number" name="numApogee"></td>
+					<td><input type="text" name="numApogee"></td>
+					<td><span class="erreur">${formEtudiant.erreurs['numApogee']}</span></td>
 				</tr>
 				<tr>
 					<td>Nom<span style="color:red" >*</span></td>
 					<td><input type="text" name="nom"></td>
+					<td><span class="erreur">${formEtudiant.erreurs['nom']}</span></td>
 				</tr>
 				<tr>
 					<td>Prenom</td>
 					<td><input type="text" name="prenom"></td>
+					<td><span class="erreur">${formEtudiant.erreurs['prenom']}</span></td>
 				</tr>
 				<tr>
 					<td>Numero de telephone<span style="color:red" >*</span></td>
 					<td><input type="text" name="numTel"></td>
+					<td><span class="erreur">${formEtudiant.erreurs['numTel']}</span></td>
 				</tr>
 				<tr>
 					<td>Adresse mail</td>
-					<td><input type="email" name="adresseMail"></td>
+					<td><input type="text" name="adresseMail"></td>
+					<td><span class="erreur">${formEtudiant.erreurs['adresseMail']}</span></td>
 				</tr>
 				<tr>
 					<td>Filiere</td>
 					<td><input type="text" name="filiere"></td>
+					<td><span class="erreur">${formEtudiant.erreurs['filiere']}</span></td>
 				</tr>
 			
 			</table>
@@ -53,24 +56,27 @@
 		</br>
 		
 		<fieldset style="border-color:blue">
-			<legend style="color:blue">Informations Emprunt</legend>
+			<legend style="color:blue">InformEtudiantations Emprunt</legend>
 			<table >
 				<tr>
 					<td>Reference<span style="color:red" >*</span></td>
 					<td><input type="text" name="reference"></td>
+					<td><span class="erreur">${formEmprunt.erreurs['reference']}</span></td>
 				</tr>
 				<tr>
 					<td>Date<span style="color:red" >*</span></td>
-					<td><input type="date" name="date"></td>
+					<td><input type="text" name="date"></td>
+					<td><span class="erreur">${formEmprunt.erreurs['date']}</span></td>
 				</tr>
 				<tr>
 					<td >Periode<span style="color:red" >*</span></td>
-					<td><input type="number" name="periode"></td>
+					<td><input type="text" name="periode"></td>
+					<td><span class="erreur">${formEmprunt.erreurs['periode']}</span></td>
 				</tr>
 			</table>
 		</fieldset>
 		</br>
-		
+		<font color="red">${form.resultat}</font></br></br>
 		<input type="submit" name="submit" value="Valider">
 		<input type="reset" name="reset" value="Remettre à zéro">
 	</form>
